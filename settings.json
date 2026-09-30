@@ -1,14 +1,14 @@
 {
   "name": "AFK Bot",
   "bot-account": {
-    "username": "Slobot00",
+    "username": "osos_bot",
     "password": "",
     "type": "offline"
   },
   "server": {
-    "ip": "slobtest1.aternos.me",
-    "port": 27586,
-    "version": "",
+    "ip": "osososoos32.aternos.me",
+    "port": 19132,
+    "version": "1.26.51",
     "try-creative": false
   },
   "position": {
@@ -19,8 +19,8 @@
   },
   "utils": {
     "auto-auth": {
-      "enabled": true,
-      "password": "chalol78"
+      "enabled": false,
+      "password": ""
     },
     "anti-afk": {
       "enabled": true,
@@ -31,9 +31,7 @@
       "repeat": true,
       "repeat-delay": 120,
       "messages": [
-        "I'm a regular player",
-        "Subscribe to Slobos!",
-        "I like to play Minecraft!"
+        "I'm keeping the server alive 24/7"
       ]
     },
     "chat-log": true,
@@ -45,7 +43,7 @@
     "enabled": true,
     "circle-walk": {
       "enabled": true,
-      "radius": 4,
+      "radius": 2,
       "speed": 3000
     },
     "look-around": {
@@ -59,14 +57,14 @@
   },
   "modules": {
     "avoidMobs": true,
-    "combat": true,
+    "combat": false,
     "beds": false,
     "chat": true,
     "console-commands": true
   },
   "combat": {
-    "attack-mobs": true,
-    "auto-eat": true
+    "attack-mobs": false,
+    "auto-eat": false
   },
   "beds": {
     "pick-up-day": false,
@@ -74,14 +72,14 @@
   },
   "discord": {
     "enabled": false,
-    "webhookUrl": "YOUR_DISCORD_WEBHOOK_URL_HERE",
+    "webhookUrl": "",
     "events": {
-      "connect": true,
-      "disconnect": true,
+      "connect": false,
+      "disconnect": false,
       "chat": false
     }
   },
   "chat": {
-    "respond": true
+    "respond": false
   }
 }
