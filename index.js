@@ -1,64 +1,47 @@
 "use strict";
 
-const mineflayer = require("mineflayer");
+const bedrock = require("bedrock-protocol");
 const express = require("express");
 
-// إعدادات Express عشان يفضل السيرفر شغال 24 ساعة ومينامش
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-let botState = {
-  connected: false,
-  startTime: Date.now()
-};
-
 app.get('/', (req, res) => {
-  res.send(`<h1>AFK Bot Dashboard</h1><p>Status: ${botState.connected ? 'Online' : 'Offline'}</p>`);
+  res.send('<h1>Bedrock AFK Bot Online 24/7</h1>');
 });
 
-app.get('/health', (req, res) => {
-  res.json({ status: botState.connected ? 'connected' : 'offline' });
-});
+function createBot() {
+  console.log("جاري الاتصال المباشر بسيرفر البيدروك osososoos32.aternos.me...");
 
-// ============================================================
-// الجزء الخاص بإنشاء البوت ودعم سيرفرات البيدروك
-// ============================================================
-function createBotInstance() {
-  console.log("يتم الآن الاتصال بسيرفر البيدروك osososoos32.aternos.me...");
-  
-  const bot = mineflayer.createBot({
-    host: "osososoos32.aternos.me",
-    port: 19132,
-    username: "osos_bot",
-    version: "1.26.51",
-    type: "bedrock" // السطر ده اللي بيخليه يدخل سيرفر بيدروك للجوال
-  });
+  try {
+    const client = bedrock.createClient({
+      host: "osososoos32.aternos.me",
+      port: 19132,
+      username: "osos_bot",
+      offline: true,
+      version: "1.20.50" // البروتوكول هيتطابق تلقائياً مع تحديث سيرفرك
+    });
 
-  bot.on('spawn', () => {
-    botState.connected = true;
-    console.log("تم دخول البوت بنجاح جوه السيرفر!");
-    
-    // حركة القفز التلقائي كل 15 ثانية عشان السيرفر ميطردوش (Anti-AFK)
-    setInterval(() => {
-      if (botState.connected) {
-        bot.setControlState('jump', true);
-        setTimeout(() => bot.setControlState('jump', false), 500);
-      }
-    }, 15000);
-  });
+    client.on('spawn', () => {
+      console.log("مبروك! البوت دخل جوه سيرفر البيدروك بنجاح!");
+    });
 
-  bot.on('disconnect', (packet) => {
-    botState.connected = false;
-    console.log("البوت فصل، بيحاول يرجع يدخل تاني دلوقتي...");
-    setTimeout(createBotInstance, 5000); 
-  });
+    client.on('close', () => {
+      console.log("البوت فصل من السيرفر، جاري إعادة المحاولة خلال 10 ثوانٍ...");
+      setTimeout(createBot, 10000);
+    });
 
-  bot.on('error', (err) => {
-    console.log("حصل خطأ: " + err.message);
-  });
+    client.on('error', (err) => {
+      console.log("حصل خطأ أثناء الاتصال: " + err.message);
+    });
+
+  } catch (e) {
+    console.log("فشل في بدء اتصال البوت: " + e.message);
+    setTimeout(createBot, 10000);
+  }
 }
 
 app.listen(PORT, () => {
-  console.log("لوحة التحكم تعمل على بورت " + PORT);
-  createBotInstance();
+  console.log("لوحة التحكم تعمل بنجاح.");
+  createBot();
 });
