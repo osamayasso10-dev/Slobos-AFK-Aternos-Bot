@@ -19,7 +19,8 @@ function createBot() {
       port: 19132,
       username: "osos_bot",
       offline: true,
-      version: "1.20.50" // البروتوكول هيتطابق تلقائياً مع تحديث سيرفرك
+      skipPing: true, // السطر ده هيخلي البوت يتخطى خطأ الـ Discovery ويدخل علطول
+      realms: false
     });
 
     client.on('spawn', () => {
@@ -27,7 +28,7 @@ function createBot() {
     });
 
     client.on('close', () => {
-      console.log("البوت فصل من السيرفر، جاري إعادة المحاولة خلال 10 ثوانٍ...");
+      console.log("البوت فصل، جاري إعادة المحاولة خلال 10 ثوانٍ...");
       setTimeout(createBot, 10000);
     });
 
