@@ -1,15 +1,14 @@
 {
-  "name": "aternos-afk-bot",
+  "name": "aternos-bedrock-bot",
   "version": "1.0.0",
-  "description": "Minecraft Bedrock AFK Bot for Aternos 24/7",
+  "description": "Minecraft Bedrock AFK Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "mineflayer": "^4.20.0",
-    "mineflayer-bedrock": "^1.3.1"
+    "bedrock-protocol": "^3.27.0"
   },
   "engines": {
     "node": ">=18.0.0"
